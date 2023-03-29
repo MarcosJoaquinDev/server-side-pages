@@ -41,16 +41,12 @@ export default function ISGPage<NextPage>({ data }: any) {
   );
 }
 export const getStaticPaths = async () => {
-  const todos = await pullData();
-  const paths = todos.map((todo) => ({
-    params: { id: todo.id.toString() },
-  }));
-  return { paths, fallback: "blocking" };
+  return { paths: [], fallback: "blocking" };
 };
 export const getStaticProps = async (context: any) => {
   const data: TodosProps = await pullTodo(context.params.id as string);
   return {
     props: { data },
-    revalidate: 1000,
+    revalidate: 10,
   };
 };
